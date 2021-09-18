@@ -1,6 +1,5 @@
 package com.kbox.blog.model;
 
-
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
