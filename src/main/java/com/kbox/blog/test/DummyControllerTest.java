@@ -42,6 +42,12 @@ public class DummyControllerTest {
 				return new IllegalArgumentException("해당 유저는 없습니다. id : " + id);
 			}
 		});
+		// 람다식
+		/*
+		User user = userRepository.findById(id).orElseThrow(()->{
+			return new IllegalArgumentException("해당 유저는 없습니다. id : " + id);
+		});
+		*/
 		return user;
 	}
 	
