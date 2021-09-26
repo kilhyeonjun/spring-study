@@ -10,7 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder // 빌더 패턴
 @Entity // User 클래스가 Mysql에 테이블이 생성된다 // ORM -> 언어(ex) JAVA)  Object -> 테이블로 매핑해주는 기술
+@DynamicInsert
 public class User {
 	
 		@Id //Primary key
@@ -38,6 +41,7 @@ public class User {
 		@Column(nullable =false, length = 50)
 		private String email;
 
+		//@ColumnDefault("user")
 		// DB는 RoleType이라는게 없다.
 		@Enumerated(EnumType.STRING)
 		private RoleType role;  // Enum을 쓰는게 좋다. // admin, user, manager
