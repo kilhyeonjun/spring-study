@@ -9,10 +9,17 @@ import com.kbox.blog.model.User;
 // 자동으로 bean등록이 된다.
 // @Repository 생략 가능
 public interface UserRepository extends JpaRepository<User, Integer>{
+	
+	
+	
+	
+	
+	
+	
 	// JPA Naming 쿼리
 	// SLECT * FROM user WHERE username = ?1 AND password = ?2;
-	User findByUsernameAndPassword(String username, String password);
+	// User findByUsernameAndPassword(String username, String password);
 	
-//	@Query(value="SLECT * FROM user WHERE username = ?1 AND password = ?2", nativeQuery = true)
-//	User login(String username, String password);
+	//	@Query(value="SLECT * FROM user WHERE username = ?1 AND password = ?2", nativeQuery = true)
+	//	User login(String username, String password);
 }
