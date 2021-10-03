@@ -4,7 +4,7 @@
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container">
-	<form action="#" method="POST">
+	<form action="/auth/loginProc" method="POST">
 		<div class="form-group">
 			<label for="username">Username</label> <input type="text"
 				class="form-control" name="username" placeholder="Enter username"
