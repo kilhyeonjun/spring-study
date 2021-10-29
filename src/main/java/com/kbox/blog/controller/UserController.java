@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kbox.blog.model.OAuthToken;
+
 // 인증이 안된 사용자들이 출입할 수 있는 경로를 /auth/** 허용
 // 그냥 주소가 / 이면 index.jsp 허용
 // static이하에 있는 /js/**, /css/**, /image/**
@@ -60,7 +65,20 @@ public class UserController {
 				String.class
 		);
 		
-		return "카카오 토큰 요청 인증 완료 : 토큰요청에 대한 응답 : " + response;
+		// Gson, Json Simple, ObjectMapper
+		ObjectMapper objectMapper= new ObjectMapper();
+		OAuthToken oauthToken = null;
+		try {
+			oauthToken = objectMapper.readValue(response.getBody(), OAuthToken.class);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("카카오 엑세스 토큰 : " + oauthToken.getAccess_token());
+		
+		return response.getBody();
 	}
 	
 	@GetMapping("/user/updateForm")
