@@ -9,7 +9,8 @@ public class KakaoProfile {
 	public String connectedAt;
 	public Properties properties;
 	public KakaoAccount kakaoAccount;
-
+	
+	@Data
 	class Properties {
 
 		public String nickname;
@@ -17,7 +18,8 @@ public class KakaoProfile {
 		public String thumbnailImage;
 
 	}
-
+	
+	@Data
 	class KakaoAccount {
 
 		public Boolean profileNicknameNeedsAgreement;
@@ -29,6 +31,7 @@ public class KakaoProfile {
 		public Boolean isEmailVerified;
 		public String email;
 
+		@Data
 		class Profile {
 
 			public String nickname;
