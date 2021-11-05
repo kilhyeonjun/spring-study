@@ -42,8 +42,8 @@
 				<li id="reply--1" class="list-group-item d-flex justify-content-between">
 					<div>${reply.content }</div>
 					<div class="d-flex">
-						<div class="font-italic">작성자 : ${reply.user.username }</div>
-						<button class="badge">삭제</button>
+						<div class="font-italic">작성자 : ${reply.user.username } &nbsp;</div>
+						<button onclick="index.replyDelete(${board.id}, ${reply.id })" class="badge">삭제</button>
 					</div>
 				</li>
 			</c:forEach>
