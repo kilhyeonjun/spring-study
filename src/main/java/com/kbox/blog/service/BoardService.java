@@ -64,6 +64,9 @@ public class BoardService {
 	@Transactional
 	public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
 		
+		replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
+		
+		/*
 		User user = userRepository.findById(replySaveRequestDto.getUserId()).orElseThrow(() -> {
 			return new IllegalArgumentException("댓글 쓰기 실패 : 유저 id를 찾을 수 없습니다.");
 		}); // 영속화 완료
@@ -79,5 +82,6 @@ public class BoardService {
 				.build();
 		
 		replyRepository.save(reply);
+		 */
 	}
 }
