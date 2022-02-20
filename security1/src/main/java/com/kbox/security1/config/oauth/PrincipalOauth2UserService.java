@@ -9,6 +9,9 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.kbox.security1.config.auth.PrincipalDetails;
+import com.kbox.security1.config.oauth.provider.FacebookUserInfo;
+import com.kbox.security1.config.oauth.provider.GoogleUserInfo;
+import com.kbox.security1.config.oauth.provider.OAuth2UserInfo;
 import com.kbox.security1.model.User;
 import com.kbox.security1.repository.UserRepository;
 
@@ -33,11 +36,20 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		// 구글로그인 버튼 클릭 -> 로그인창 -> 로그인을 완료 -> code를 리턴(OAuth-Client라이브러리) -> AccessToken요청
 		// userRequest 정보 -> loadUser함수 호출 -> 구글로부터 회원프로필 받아준다.
 		
-		String provider = userRequest.getClientRegistration().getRegistrationId(); // google
-		String providerId = oauth2User.getAttribute("sub");
+		OAuth2UserInfo oAuth2UserInfo = null;
+		if(userRequest.getClientRegistration().getRegistrationId().equals("google")) {
+			oAuth2UserInfo = new GoogleUserInfo(oauth2User.getAttributes());
+		}else if(userRequest.getClientRegistration().getRegistrationId().equals("facebook")) {
+			oAuth2UserInfo = new FacebookUserInfo(oauth2User.getAttributes());
+		}else {
+			System.out.println("우리는 구글과 페이스북만 지원합니다.");
+		}
+		
+		String provider = oAuth2UserInfo.getProvider();
+		String providerId = oAuth2UserInfo.getProviderId();
 		String username = provider + "_" + providerId; // google_10131232121312312313
 		String password = bCryptPasswordEncoder.encode("길현준");
-		String email = oauth2User.getAttribute("email");
+		String email = oAuth2UserInfo.getEmail();
 		String role = "ROLE_USER";
 
 		User userEntity = userRepository.findByUsername(username);
@@ -48,7 +60,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 					.password(password)
 					.email(email)
 					.role(role)
-					.provider(providerId)
+					.provider(provider)
 					.providerId(providerId)
 					.build();
 			userRepository.save(userEntity);
