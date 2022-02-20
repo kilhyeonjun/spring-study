@@ -1,4 +1,4 @@
-package com.kbox.security1.auth.oauth;
+package com.kbox.security1.config.oauth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,7 +8,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import com.kbox.security1.auth.PrincipalDetails;
+import com.kbox.security1.config.auth.PrincipalDetails;
 import com.kbox.security1.model.User;
 import com.kbox.security1.repository.UserRepository;
 
@@ -33,7 +33,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 		// 구글로그인 버튼 클릭 -> 로그인창 -> 로그인을 완료 -> code를 리턴(OAuth-Client라이브러리) -> AccessToken요청
 		// userRequest 정보 -> loadUser함수 호출 -> 구글로부터 회원프로필 받아준다.
 		
-		String provider = userRequest.getClientRegistration().getClientId(); // google
+		String provider = userRequest.getClientRegistration().getRegistrationId(); // google
 		String providerId = oauth2User.getAttribute("sub");
 		String username = provider + "_" + providerId; // google_10131232121312312313
 		String password = bCryptPasswordEncoder.encode("길현준");

@@ -6,6 +6,11 @@ server:
       charset: UTF-8
       enabled: true
       force: true
+  ssl:
+    key-store: kbox-keystore.p12
+    key-store-type: PKCS12
+    key-store-password: 170813 
+    key-alias: kbox-keystore
       
 spring:
   datasource:
@@ -37,3 +42,10 @@ spring:
             scope:
             - email
             - profile
+            
+          facebook:
+            client-id: 3079302949012072
+            client-secret: 5ecc7170bd6747210c8c0c2a1aaca198
+            scope:
+            - email
+            - public_profile
